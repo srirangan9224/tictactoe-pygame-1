@@ -25,10 +25,6 @@ This is a simple implementation of the classic Tic-Tac-Toe game using Python and
     ```bash
     pip install -r requirements.txt
 
-    (or)
-
-    pip3 install -r requirements.txt
-
 ## File Descriptions
 
 Here's a breakdown of the files included in this project and their purposes:
