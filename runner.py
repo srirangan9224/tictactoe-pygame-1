@@ -9,9 +9,11 @@ if __name__ == "__main__":
     
     screen = pygame.display.set_mode((HEIGHT,WIDTH))
     pygame.display.set_caption("tic-tac-toe")
+    
     game_over = False
     game_started = False
     finished = False
+    winner = None
     
     screen_font = pygame.font.Font(None, SCREEN_FONT)
     button_font = pygame.font.Font(None, BUTTON_FONT)
@@ -37,6 +39,11 @@ if __name__ == "__main__":
                 
                 if not game_started and play_button.collidepoint(event.pos):
                     game_started = True
+                    
+                if game_started and finished and replay_button.collidepoint(event.pos):
+                    BOARD.initialize_board()
+                    game_started = True
+                    finished = False
         
         if not game_started and not finished:
             
@@ -56,8 +63,6 @@ if __name__ == "__main__":
             screen.blit(play_text,play_text_rect)
             
         elif game_started and not finished:
-            if BOARD.board_is_full():
-                finished = True
             screen.fill(BG_COLOR)
             Static.draw_board(screen)
             for row in range(BOARD_ROWS):
@@ -66,8 +71,45 @@ if __name__ == "__main__":
                         center = Static.center((row,col))
                         Static.draw_chip(screen,center,BOARD.board[row][col],chip_font)
                         
+            if BOARD.check_if_winner(CHIP_X):
+                winner = CHIP_X
+                finished = True
+                
+            elif BOARD.check_if_winner(CHIP_O):
+                winner = CHIP_O
+                finished = True
+                
+            if BOARD.board_is_full():
+                winner = None
+                finished = True
+                        
         elif game_started and finished:
-            ...
-        
+            
+            print(BOARD.board)
+            screen.fill(START_COLOR)
+            
+            if winner == CHIP_X:
+                winner = screen_font.render(f"                {CHIP_X} WON",0,TEXT_COLOR)
+            elif winner == CHIP_O:
+                winner = screen_font.render(f"                {CHIP_O} WON",0,TEXT_COLOR)
+            elif winner == None:
+                winner = screen_font.render("              No One Won",0,TEXT_COLOR)       
+                
+                
+            winner_rect = welcome.get_rect(center=(WIDTH/2,HEIGHT/4))
+            screen.blit(winner,winner_rect)
+            
+             # replay button display
+            replay_button = pygame.Rect(BUTTON_X,BUTTON_Y,BUTTON_WIDTH,BUTTON_HEIGHT)
+            replay_text = button_font.render("replay",0,BUTTON_TEXT)
+            replay_text_rect = replay_text.get_rect()
+            replay_text_rect.center = replay_button.center
+            pygame.draw.rect(screen,BUTTON_COLOR,replay_button)
+            screen.blit(replay_text,replay_text_rect)
+            
+            
+            
+            
+            
         pygame.display.flip()
     
