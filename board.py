@@ -50,19 +50,20 @@ class Board:
         """
         check for the winner of the board
         """
-        for row in range(3):
-            if self.board[row][0] == self.board[row][1] == self.board[row][2] == chip_type:
+        for i in range(len(self.board)):
+            if self.board[i][0] == self.board[i][1] == self.board[i][2] == chip_type:
+                return True
+        for i in [0, 1, 2]:
+            if self.board[0][i] == self.board[1][i] == self.board[2][i] == chip_type:
                 return True
             
-        # check all columns
-        for col in range(3):
-            if self.board[0][col] == self.board[1][col] == self.board[2][col] == chip_type:
-                return True
-            if self.board[0][0] == self.board[1][1] == self.board[2][2] == chip_type:
-                return True
-            if self.board[0][2] == self.board[1][1] == self.board[2][0] == chip_type:
-                return True
-            return False
+        i = 0
+        if self.board[i][i] == self.board[i + 1][i + 1] == self.board[i + 2][i + 2] == chip_type:
+            return True
+        elif self.board[2 - i][i] == self.board[2 - (i + 1)][i + 1] == self.board[2 - (i + 2)][i + 2] == chip_type:
+            return True
+        return False
+        
         
     # row: row index, col: col index
     def is_valid(self, row, col):

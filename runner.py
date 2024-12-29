@@ -85,7 +85,6 @@ if __name__ == "__main__":
                         
         elif game_started and finished:
             
-            print(BOARD.board)
             screen.fill(START_COLOR)
             
             if winner == CHIP_X:
