@@ -26,9 +26,6 @@ This is a simple implementation of the classic Tic-Tac-Toe game using Python and
     pip install -r requirements.txt
 
 ## File Descriptions
-
-Here's a breakdown of the files included in this project and their purposes:
-
 ### `runner.py`
 - **Purpose**: The main script that initializes and runs the game.
 - **Key Features**:
